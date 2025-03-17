@@ -75,7 +75,9 @@ const iniciarSesion = async (req, res) => {
     if (usuario) {
       const validPassword = bcrypt.compareSync(password, usuario.password);
       if (validPassword) {
-        const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, {
+          expiresIn: process.env.JWT_EXPIRATION,
+        });
         res.json({ token });
       } else {
         res.status(401).json({ message: "Contraseña incorrecta" });
