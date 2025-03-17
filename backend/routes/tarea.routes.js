@@ -1,12 +1,19 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const { obtenerTareas, obtenerTarea, crearTarea, actualizarTarea, eliminarTarea } = require('../controllers/tareas.controller') 
+const {
+  obtenerTareas,
+  obtenerTarea,
+  crearTarea,
+  actualizarTarea,
+  eliminarTarea,
+} = require("../controllers/tareas.controller");
+const { verifyToken } = require("../auth.middleware");
 
-router.get('/', obtenerTareas)
-router.get('/:id', obtenerTarea)
-router.post('/', crearTarea)
-router.put('/:id', actualizarTarea)
-router.delete('/:id', eliminarTarea)
+router.get("/", verifyToken, obtenerTareas);
+router.get("/:id", verifyToken, obtenerTarea);
+router.post("/", verifyToken, crearTarea);
+router.put("/:id", verifyToken, actualizarTarea);
+router.delete("/:id", verifyToken, eliminarTarea);
 
-module.exports = router
+module.exports = router;

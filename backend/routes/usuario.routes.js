@@ -1,12 +1,21 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const { obtenerUsuarios, obtenerUsuario, crearUsuario, actualizarUsuario, eliminarUsuario } = require('../controllers/usuarios.controller')
+const {
+  obtenerUsuarios,
+  obtenerUsuario,
+  crearUsuario,
+  actualizarUsuario,
+  eliminarUsuario,
+  iniciarSesion,
+} = require("../controllers/usuarios.controller");
+const { verifyToken } = require("../auth.middleware");
 
-router.get('/', obtenerUsuarios)
-router.get('/:id', obtenerUsuario)
-router.post('/', crearUsuario)
-router.put('/:id', actualizarUsuario)
-router.delete('/:id', eliminarUsuario)
+router.get("/", verifyToken, obtenerUsuarios);
+router.get("/:id", verifyToken, obtenerUsuario);
+router.post("/", verifyToken, crearUsuario);
+router.put("/:id", verifyToken, actualizarUsuario);
+router.delete("/:id", verifyToken, eliminarUsuario);
+router.post("/login", iniciarSesion);
 
-module.exports = router
+module.exports = router;
