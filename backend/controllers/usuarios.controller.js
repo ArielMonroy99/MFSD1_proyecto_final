@@ -70,7 +70,12 @@ const eliminarUsuario = async (req, res) => {
 
 const iniciarSesion = async (req, res) => {
   try {
+    console.log(req.body);
     const { correo, password } = req.body;
+    if (!correo || !password) {
+      res.status(400).json({ message: "Datos invalidos" });
+      return;
+    }
     const usuario = await Usuario.findOne({ where: { correo } });
     if (usuario) {
       const validPassword = bcrypt.compareSync(password, usuario.password);
