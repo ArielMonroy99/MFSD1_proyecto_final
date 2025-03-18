@@ -1,0 +1,12 @@
+.card {
+  padding: 20px;
+  border: 1px gray solid;
+  border-radius: 30px 20px;
+  background-color: #191919;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

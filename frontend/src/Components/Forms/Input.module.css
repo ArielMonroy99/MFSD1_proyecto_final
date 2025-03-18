@@ -1,0 +1,19 @@
+.input {
+  font-size: 18px;
+  padding: 10px 10px;
+  border-radius: 7px;
+  border: 1px solid;
+  border-color: white;
+}
+
+.input:focus {
+  outline: 2px solid skyblue;
+  border-color: transparent;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: start;
+}
