@@ -1,0 +1,41 @@
+.card {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.status {
+  color: rgb(223, 223, 223);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 0px 10px;
+  border-radius: 20px;
+}
+
+.finished {
+  background-color: #00a800;
+}
+
+.not_finished {
+  background-color: rgb(232, 232, 13);
+}
+
+.card_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 800;
+  color: rgb(194, 194, 194);
+}
+
+.description {
+  height: 4.5em;
+  line-height: 1.5em;
+  overflow: hidden;
+  text-align: start;
+}

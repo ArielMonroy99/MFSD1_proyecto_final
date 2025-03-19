@@ -1,0 +1,8 @@
+.modal {
+  width: 500px;
+  height: 500px;
+  outline: none;
+  border: solid 1px white;
+  background-color: #242424;
+  border-radius: 20px;
+}

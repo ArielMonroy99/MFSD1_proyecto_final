@@ -1,0 +1,12 @@
+.list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.list > li {
+  flex: 1 0 350px;
+  max-width: 350px;
+}

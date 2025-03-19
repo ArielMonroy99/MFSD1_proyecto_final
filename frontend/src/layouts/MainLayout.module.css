@@ -1,0 +1,24 @@
+.nav {
+  height: 7vh;
+  width: 100vw;
+  display: flex;
+  background: #242424;
+  border-bottom: 1px white dotted;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav_link {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.nav_link:hover {
+  color: skyblue;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+}

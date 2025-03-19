@@ -1,14 +1,15 @@
-import { MouseEventHandler, ReactElement } from 'react'
+import { MouseEventHandler } from 'react'
 import styles from './Button.module.css'
 
 type ButtonProps = {
-  handler: MouseEventHandler
-  children: ReactElement
+  handler?: MouseEventHandler
+  children: string
+  type?: 'button' | 'submit'
 }
 
-export const Button = ({ handler, children }: ButtonProps) => {
+export const Button = ({ handler, children, type }: ButtonProps) => {
   return (
-    <button className={styles.primary} onClick={handler}>
+    <button type={type ?? 'button'} className={styles.primary} onClick={handler}>
       {children}
     </button>
   )

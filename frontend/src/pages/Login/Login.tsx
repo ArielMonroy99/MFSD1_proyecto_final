@@ -2,35 +2,18 @@ import { FormEvent } from 'react'
 import { Button } from '../../Components/Buttons/Button'
 import { Input } from '../../Components/Forms/Input'
 import styles from './Login.module.css'
-import { toast } from 'sonner'
+import useAuth from '../../hooks/useAuth'
 
 export const Login = () => {
+  const { login } = useAuth()
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-
     const body = {
-      correo: formData.get('correo'),
-      password: formData.get('password'),
+      correo: formData.get('correo')?.toString() ?? '',
+      password: formData.get('password')?.toString() ?? '',
     }
-
-    console.log(body)
-
-    fetch('http://localhost:3001/usuario/login', {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(async (res) => {
-        if (res.status !== 200) {
-          toast.error('Error al inciar sesion')
-        }
-        const json = await res.json()
-        localStorage.setItem('token', json)
-      })
-      .catch((err: Error) => {
-        toast.error('Error al inciar sesion' + err)
-      })
+    login(body)
   }
 
   return (
@@ -49,9 +32,7 @@ export const Login = () => {
           name={'password'}
           placeholder={'Contraseña'}
         ></Input>
-        <Button handler={() => {}}>
-          <span>Iniciar Sesion</span>
-        </Button>
+        <Button type="submit">Iniciar Sesion</Button>
       </form>
     </div>
   )
