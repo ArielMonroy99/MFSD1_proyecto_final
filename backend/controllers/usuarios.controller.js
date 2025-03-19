@@ -96,6 +96,29 @@ const iniciarSesion = async (req, res) => {
   }
 };
 
+const obtenerUsuarioPorToken = async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token)
+    return res
+      .status(401)
+      .json({ message: "Acceso denegado, token requerido" });
+
+  try {
+    const SECRET_KEY = process.env.JWT_SECRET;
+    console.log(SECRET_KEY);
+    const decoded = jwt.verify(token, SECRET_KEY);
+    console.log(decoded);
+    const user = await Usuario.findByPk(decoded.id);
+    console.log(user);
+    if (!user)
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    res.json({ id: user.id, nombre: user.nombre, correo: user.correo });
+  } catch (error) {
+    res.status(401).json({ message: "Token inválido o expirado" });
+  }
+};
+
 module.exports = {
   crearUsuario,
   obtenerUsuarios,
@@ -103,4 +126,5 @@ module.exports = {
   actualizarUsuario,
   eliminarUsuario,
   iniciarSesion,
+  obtenerUsuarioPorToken,
 };
