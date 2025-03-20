@@ -1,23 +1,41 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "password",
+    "username": "postgresql",
+    "password": "pghOv2UtgI3kexzAeKtmpqX8xZJ1JurU",
     "database": "maestria",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "host": "dpg-cvacb1rtq21c73ccbu50-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
+      }
   },
   "test": {
-    "username": "postgres",
-    "password": "password",
+   "username": "postgresql",
+    "password": "pghOv2UtgI3kexzAeKtmpqX8xZJ1JurU",
     "database": "maestria",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "host": "dpg-cvacb1rtq21c73ccbu50-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
+      }
   },
   "production": {
-    "username": "postgres",
-    "password": "password",
+   "username": "postgresql",
+    "password": "pghOv2UtgI3kexzAeKtmpqX8xZJ1JurU",
     "database": "maestria",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "host": "dpg-cvacb1rtq21c73ccbu50-a.oregon-postgres.render.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
+      }
   }
 }
