@@ -9,7 +9,7 @@ const {
   deleteTask,
   finishTask,
 } = require("../controllers/tasks.controller");
-const { verifyToken } = require("../auth.middleware");
+const { verifyToken } = require("../middleware/auth.middleware");
 
 router.get("/", verifyToken, getTasksByUser);
 router.get("/:id", verifyToken, getTask);
