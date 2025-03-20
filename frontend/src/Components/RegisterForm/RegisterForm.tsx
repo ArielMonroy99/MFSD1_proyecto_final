@@ -3,6 +3,7 @@ import { Button } from '../Buttons/Button/Button'
 import { Input } from '../Forms/Input/Input'
 import styles from './RegisterForm.module.css'
 import { UserRegisterData } from '../../types/types'
+import { NavLink } from 'react-router'
 
 export const RegisterForm = ({ register }: { register: (user: UserRegisterData) => void }) => {
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
@@ -16,12 +17,22 @@ export const RegisterForm = ({ register }: { register: (user: UserRegisterData) 
     register(body)
   }
   return (
-    <form className={styles.form} onSubmit={submitHandler}>
-      <h2>Registrate</h2>
-      <Input label={'Nombre'} type={'text'} name={'nombre'} placeholder={'Nombre'} />
-      <Input label={'Correo'} type={'email'} name={'correo'} placeholder={'Correo'} />
-      <Input label={'Contraseña'} type={'password'} name={'password'} placeholder={'Contraseña'} />
-      <Button type="submit">Guardar</Button>
-    </form>
+    <div>
+      <form className={styles.form} onSubmit={submitHandler}>
+        <h2>Registrate</h2>
+        <Input label={'Nombre'} type={'text'} name={'nombre'} placeholder={'Nombre'} />
+        <Input label={'Correo'} type={'email'} name={'correo'} placeholder={'Correo'} />
+        <Input
+          label={'Contraseña'}
+          type={'password'}
+          name={'password'}
+          placeholder={'Contraseña'}
+        />
+        <Button type="submit">Guardar</Button>
+      </form>
+      <span>
+        Si ya te registraste <NavLink to={'/login'}>Inicia sesion</NavLink>
+      </span>
+    </div>
   )
 }

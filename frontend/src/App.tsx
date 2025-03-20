@@ -1,7 +1,7 @@
 import { Toaster } from 'sonner'
 import './App.css'
 import { Login } from './pages/Login/Login'
-import { Route, Routes } from 'react-router'
+import { Navigate, Route, Routes } from 'react-router'
 import { MainLayout } from './layouts/MainLayout'
 import { ProtectedRoute } from './Components/Auth/ProtectedRoute'
 import useAuth from './hooks/useAuth'
@@ -30,6 +30,7 @@ function App() {
           />
         </Route>
         <Route path="register" element={<Register register={register} />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
       <Toaster richColors />
     </>
