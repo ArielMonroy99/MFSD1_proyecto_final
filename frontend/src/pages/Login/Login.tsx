@@ -1,11 +1,14 @@
 import { FormEvent } from 'react'
-import { Button } from '../../Components/Buttons/Button'
-import { Input } from '../../Components/Forms/Input'
+import { Button } from '../../Components/Buttons/Button/Button'
+import { Input } from '../../Components/Forms/Input/Input'
 import styles from './Login.module.css'
-import useAuth from '../../hooks/useAuth'
+import { LoginData } from '../../types/types'
 
-export const Login = () => {
-  const { login } = useAuth()
+type LoginProps = {
+  login: (body: LoginData) => void
+}
+
+export const Login = ({ login }: LoginProps) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)

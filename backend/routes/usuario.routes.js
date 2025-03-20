@@ -15,7 +15,7 @@ const { verifyToken } = require("../auth.middleware");
 router.get("/", verifyToken, obtenerUsuarios);
 router.get("/me", verifyToken, obtenerUsuarioPorToken);
 router.get("/:id", verifyToken, obtenerUsuario);
-router.post("/", verifyToken, crearUsuario);
+router.post("/", crearUsuario);
 router.put("/:id", verifyToken, actualizarUsuario);
 router.delete("/:id", verifyToken, eliminarUsuario);
 router.post("/login", iniciarSesion);

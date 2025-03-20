@@ -4,6 +4,8 @@
   border-radius: 7px;
   border: 1px solid;
   border-color: white;
+
+  background-color: #242424;
 }
 
 .input:focus {

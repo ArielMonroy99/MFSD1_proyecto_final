@@ -16,8 +16,13 @@
   background-color: #00a800;
 }
 
-.not_finished {
+.in_progress {
   background-color: rgb(232, 232, 13);
+  color: rgb(114, 114, 114);
+}
+
+.pending {
+  background-color: rgb(213, 137, 14);
 }
 
 .card_header {
@@ -38,4 +43,15 @@
   line-height: 1.5em;
   overflow: hidden;
   text-align: start;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions > button {
+  flex: 0 1 75px;
 }

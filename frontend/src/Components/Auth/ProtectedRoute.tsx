@@ -1,10 +1,13 @@
 import { ReactElement } from 'react'
-import useAuth from '../../hooks/useAuth'
 import { Navigate } from 'react-router'
+import { User } from '../../types/types'
 
-export const ProtectedRoute = ({ children }: { children: ReactElement }) => {
-  const { user } = useAuth()
-  console.log(user)
+type ProtectedRouteProps = {
+  children: ReactElement
+  user: User | undefined
+}
+
+export const ProtectedRoute = ({ children, user }: ProtectedRouteProps) => {
   return user ? (
     <div>
       <span>hola {user.nombre} </span>

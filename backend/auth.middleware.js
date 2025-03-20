@@ -2,7 +2,13 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 module.exports.verifyToken = async (req, res, next) => {
-  const token = req.headers["authorization"].split(" ")[1];
+  const authHeader = req.headers["authorization"];
+  if (!authHeader) {
+    return res
+      .status(403)
+      .json({ message: "A token is required for authentication" });
+  }
+  const token = authHeader.split(" ")[1];
   if (!token) {
     return res
       .status(403)

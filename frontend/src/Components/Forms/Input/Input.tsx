@@ -1,13 +1,5 @@
+import { InputProps } from '../../../types/component.types'
 import styles from './Input.module.css'
-
-type InputProps = {
-  label: string
-  type: string
-  name: string
-  placeholder: string
-  required?: boolean
-  error?: string
-}
 
 export const Input = ({ label, type, name, placeholder }: InputProps) => {
   return (
