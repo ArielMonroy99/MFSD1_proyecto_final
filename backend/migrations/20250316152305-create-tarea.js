@@ -2,23 +2,23 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Tareas", {
+    await queryInterface.createTable("Tasks", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      titulo: {
+      title: {
         type: Sequelize.STRING,
       },
-      descripcion: {
+      description: {
         type: Sequelize.STRING,
       },
-      estado: {
-        type: Sequelize.INTEGER,
+      status: {
+        type: Sequelize.STRING,
       },
-      fecha_limite: {
+      due_date: {
         type: Sequelize.DATE,
       },
       createdAt: {
@@ -29,10 +29,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      usuario_id: {
+      user_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Usuarios", // Asegúrate de que coincide con el nombre real de la tabla
+          model: "Users",
           key: "id",
         },
         onUpdate: "CASCADE",
@@ -41,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Tareas");
+    await queryInterface.dropTable("Tasks");
   },
 };

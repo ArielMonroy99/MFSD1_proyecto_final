@@ -4,8 +4,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
-const usuarioRoutes = require("./routes/usuario.routes");
-const tareaRoutes = require("./routes/tarea.routes");
+const authRoutes = require("./routes/auth.routes");
+const taskRoutes = require("./routes/task.routes");
 const cors = require("cors");
 
 var app = express();
@@ -23,7 +23,7 @@ app.use(
 );
 
 app.use("/", indexRouter);
-app.use("/usuario", usuarioRoutes);
-app.use("/tarea", tareaRoutes);
+app.use("/auth", authRoutes);
+app.use("/task", taskRoutes);
 
 module.exports = app;
