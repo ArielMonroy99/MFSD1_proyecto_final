@@ -36,9 +36,8 @@ const login = async (req, res) => {
 
         const options = {
           httpOnly: true,
-          secure: true,
+          secure: false,
           sameSite: "none",
-          domain: "mfsd-1-proyecto-final.vercel.app",
         };
 
         res.cookie("token", token, options);

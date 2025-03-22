@@ -1,16 +1,10 @@
 {
   "development": {
-    "username": "postgresql",
-    "password": "pghOv2UtgI3kexzAeKtmpqX8xZJ1JurU",
+    "username": "postgres",
+    "password": "password",
     "database": "maestria",
-    "host": "dpg-cvacb1rtq21c73ccbu50-a.oregon-postgres.render.com",
-    "dialect": "postgres",
-    "dialectOptions": {
-        "ssl": {
-          "require": true,
-          "rejectUnauthorized": false
-        }
-      }
+    "host": "localhost",
+    "dialect": "postgres"
   },
   "test": {
    "username": "postgresql",
@@ -26,16 +20,13 @@
       }
   },
   "production": {
-   "username": "postgresql",
-    "password": "pghOv2UtgI3kexzAeKtmpqX8xZJ1JurU",
-    "database": "maestria",
-    "host": "dpg-cvacb1rtq21c73ccbu50-a.oregon-postgres.render.com",
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
     "dialectOptions": {
-        "ssl": {
-          "require": true,
-          "rejectUnauthorized": false
-        }
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
       }
+    }
   }
 }
