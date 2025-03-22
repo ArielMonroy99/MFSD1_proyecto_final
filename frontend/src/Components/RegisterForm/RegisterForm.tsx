@@ -10,8 +10,8 @@ export const RegisterForm = ({ register }: { register: (user: UserRegisterData) 
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const body: UserRegisterData = {
-      nombre: formData.get('nombre') as string,
-      correo: formData.get('correo') as string,
+      name: formData.get('nombre') as string,
+      email: formData.get('correo') as string,
       password: formData.get('password') as string,
     }
     register(body)

@@ -20,8 +20,8 @@ export type User = {
 }
 
 export type UserRegisterData = {
-  correo: string
-  nombre: string
+  email: string
+  name: string
   password: string
 }
 
