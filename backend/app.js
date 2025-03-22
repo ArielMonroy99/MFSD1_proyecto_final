@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
-    origin: "https://arimon.xyz",
+    origin: "https://www.arimon.xyz",
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     credentials: true,
   })
