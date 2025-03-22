@@ -23,7 +23,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(400).json({ message: "Datos invalidos" });
+      res.status(400).json({ message: "Datos inválidos" });
       return;
     }
     const user = await User.findOne({ where: { email } });
@@ -38,8 +38,9 @@ const login = async (req, res) => {
           httpOnly: true,
           secure: true,
           sameSite: "none",
-          domain: "https://mfsd-1-proyecto-final.vercel.app",
+          domain: "mfsd-1-proyecto-final.vercel.app",
         };
+
         res.cookie("token", token, options);
         res.json({ message: "Inicio de sesión exitoso" });
       } else {
