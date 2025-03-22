@@ -38,7 +38,7 @@ const login = async (req, res) => {
           httpOnly: true,
           secure: true,
           sameSite: "none",
-          domain: "mfsd-1-proyecto-final.vercel.app",
+          domain: "api.arimon.xyz",
         };
 
         res.cookie("token", token, options);
