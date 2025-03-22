@@ -17,12 +17,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
-    origin: "*",
+    origin: ["https://www.arimon.xyz", "https://arimon.xyz", "https://api.arimon.xyz"],
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     credentials: true,
   })
 );
-
 app.use("/", indexRouter);
 app.use("/auth", authRoutes);
 app.use("/task", taskRoutes);
