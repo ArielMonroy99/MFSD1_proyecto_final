@@ -22,17 +22,15 @@ const createTask = async (req, res) => {
 
 const getTasksByUser = async (req, res) => {
   try {
-    const token = req.headers.authorization.split(" ")[1];
-    const decoded = jwt.verify(token, SECRET_KEY);
-
+    const tokenUser = req.user;
     const {
       search = null,
-      beforeDate = null,
-      afterDate = null,
+      dateBefore = null,
+      dateAfter = null,
       status = null,
     } = req.query;
 
-    const whereCondition = { user_id: decoded.id };
+    const whereCondition = { user_id: tokenUser.id };
 
     if (search !== null) {
       whereCondition[Op.or] = [
@@ -41,15 +39,15 @@ const getTasksByUser = async (req, res) => {
       ];
     }
 
-    if (beforeDate !== null || afterDate !== null) {
+    if (dateBefore !== null || dateAfter !== null) {
       whereCondition.due_date = {};
 
-      if (beforeDate !== null) {
-        whereCondition.due_date[Op.lte] = new Date(beforeDate);
+      if (dateBefore !== null) {
+        whereCondition.due_date[Op.lte] = new Date(dateBefore);
       }
 
-      if (afterDate !== null) {
-        whereCondition.due_date[Op.gte] = new Date(afterDate);
+      if (dateAfter !== null) {
+        whereCondition.due_date[Op.gte] = new Date(dateAfter);
       }
     }
 

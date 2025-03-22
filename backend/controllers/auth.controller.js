@@ -48,17 +48,12 @@ const login = async (req, res) => {
 };
 
 const obtainAuthUserInfo = async (req, res) => {
-  const token = req.headers.authorization?.split(" ")[1];
-
-  if (!token)
-    return res
-      .status(401)
-      .json({ message: "Acceso denegado, token requerido" });
-
+  const tokenUser = req.user;
+  if (!tokenUser) {
+    return res.status(404).json({ message: "Usuario no encontrado" });
+  }
   try {
-    const SECRET_KEY = process.env.JWT_SECRET;
-    const decoded = jwt.verify(token, SECRET_KEY);
-    const user = await User.findByPk(decoded.id);
+    const user = await User.findByPk(tokenUser.id);
     if (!user)
       return res.status(404).json({ message: "Usuario no encontrado" });
     res.json({ id: user.id, name: user.name, email: user.email });
@@ -67,8 +62,14 @@ const obtainAuthUserInfo = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  res.clearCookie("token");
+  res.json({ message: "Cierre de sesión exitoso" });
+};
+
 module.exports = {
   login,
   registerUser,
   obtainAuthUserInfo,
+  logout,
 };
