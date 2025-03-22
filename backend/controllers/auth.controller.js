@@ -33,11 +33,14 @@ const login = async (req, res) => {
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXPIRATION,
         });
-        res.cookie("token", token, {
+
+        const options = {
           httpOnly: true,
-          sercure: true,
+          secure: true,
           sameSite: "none",
-        });
+          domain: "https://mfsd-1-proyecto-final.vercel.app",
+        };
+        res.cookie("token", token, options);
         res.json({ message: "Inicio de sesión exitoso" });
       } else {
         res.status(401).json({ message: "Contraseña incorrecta" });
