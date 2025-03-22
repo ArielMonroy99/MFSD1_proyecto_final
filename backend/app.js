@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
-    origin: ["https://www.arimon.xyz", "https://arimon.xyz","http://localhost:5173/"],
+    origin: ["https://www.arimon.xyz", "https://arimon.xyz","https://mfsd-1-proyecto-final-wnbp.vercel.app"],
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     credentials: true,
   })
