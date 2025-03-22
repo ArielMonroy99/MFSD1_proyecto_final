@@ -37,7 +37,7 @@ const login = async (req, res) => {
         const options = {
           httpOnly: true,
           secure: true,
-          sameSite: "none",
+          sameSite: "lax",
           domain: "mfsd-1-proyecto-final.vercel.app",
         };
 
