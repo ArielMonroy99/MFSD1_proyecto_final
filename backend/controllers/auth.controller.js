@@ -33,7 +33,11 @@ const login = async (req, res) => {
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXPIRATION,
         });
-        res.cookie("token", token, { httpOnly: true, secure: false });
+        res.cookie("token", token, {
+          httpOnly: true,
+          sercure: true,
+          sameSite: "none",
+        });
         res.json({ message: "Inicio de sesión exitoso" });
       } else {
         res.status(401).json({ message: "Contraseña incorrecta" });

@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
-    origin: "https://mfsd-1-proyecto-final.vercel.app",
+    origin: "http://localhost:5173",
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     credentials: true,
   })
