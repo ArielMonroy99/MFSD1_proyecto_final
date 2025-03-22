@@ -37,8 +37,7 @@ const login = async (req, res) => {
         const options = {
           httpOnly: true,
           secure: true,
-          sameSite: "none",
-          domain: "api.arimon.xyz",
+          sameSite: "none"
         };
 
         res.cookie("token", token, options);
