@@ -14,21 +14,26 @@ export const TaskCard = ({ task, editTask, deleteTask, finishTask }: TaskCardPro
   return (
     <article className={styles.card}>
       <div className={styles.card_header}>
-        <span className={styles.title}>{task.titulo}</span>
+        <span className={styles.title}>{task.title}</span>
         <span
           className={`${styles.status} ${
-            task.estado === 1
+            task.status === 'pending'
               ? styles.pending
-              : task.estado === 2
+              : task.status === 'in_progress'
               ? styles.in_progress
               : styles.finished
           } `}
         >
-          {task.estado === 1 ? 'Pendiente' : task.estado === 2 ? 'En Progreso' : 'Completada'}.
+          {task.status === 'pending'
+            ? 'Pendiente'
+            : task.status === 'in_progress'
+            ? 'En Progreso'
+            : 'Completada'}
+          .
         </span>
       </div>
-      <span>{task.fecha_limite.toLocaleDateString()}</span>
-      <p className={styles.description}>{task.descripcion}</p>
+      <span>{task.due_date.toLocaleDateString()}</span>
+      <p className={styles.description}>{task.description}</p>
       <div className={styles.actions}>
         <Button icon variant={'primary'} handler={() => finishTask(task.id)}>
           <Icon icon={'material-symbols:check-box'} />

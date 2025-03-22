@@ -26,3 +26,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+html {
+  scrollbar-width: thin;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}

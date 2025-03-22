@@ -1,5 +1,5 @@
 export type LoginData = {
-  correo:string,
+  email:string,
   password:string
 }
 
@@ -14,8 +14,8 @@ export type AuthContextType = {
 }
 
 export type User = {
-  correo: string
-  nombre: string
+  email: string
+  name: string
   id: string
 }
 
@@ -27,16 +27,16 @@ export type UserRegisterData = {
 
 export type Task = {
   id:number
-  titulo: string
-  descripcion: string
-  estado: number
-  fecha_limite: Date
-  usuario_id: number
+  title: string
+  description: string
+  status: string
+  due_date: Date
+  user_id: number
 } 
 
 export type QueryParams = {
-  filtro: string
-  fechaAntesDe: string
-  fechaDespuesDe: string
-  estado:string
+  search: string
+  dateBefore: string
+  dateAfter: string
+  status:string
 }

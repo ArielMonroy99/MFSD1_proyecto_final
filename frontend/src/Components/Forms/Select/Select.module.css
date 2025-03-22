@@ -3,10 +3,9 @@
   padding: 10px 10px;
   border-radius: 7px;
   border: 1px solid;
-  border-color: white;
-  resize: none;
-
+  border-color: #7e7e7e;
   background-color: #242424;
+  box-sizing: content-box;
 }
 
 .select:focus {
@@ -19,4 +18,8 @@
   flex-direction: column;
   gap: 5px;
   align-items: start;
+}
+
+.hidden {
+  display: none;
 }

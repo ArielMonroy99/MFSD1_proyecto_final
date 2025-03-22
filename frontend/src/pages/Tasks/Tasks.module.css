@@ -12,25 +12,12 @@
   width: 100%;
 }
 
-.form {
-  width: 80%;
-  max-width: 800px;
+aside {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 15px;
-  margin-top: 20px;
-  margin-bottom: 15px;
 }
 
-.form > div {
-  margin: 5px;
-}
-
-.form > div > input,
-.form > div > textarea,
-.form > div > select {
-  width: 250px;
+summary {
+  cursor: pointer;
 }

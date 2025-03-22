@@ -10,7 +10,7 @@ import { Register } from './pages/Register/Register'
 
 function App() {
   const { isLoading, login, user, register } = useAuth()
-  console.log(isLoading)
+
   if (isLoading) {
     return <div>Cargando...</div>
   }

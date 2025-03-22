@@ -3,7 +3,7 @@
   width: 100vw;
   display: flex;
   background: #242424;
-  border-bottom: 1px white dotted;
+  border-bottom: 1px white solid;
   justify-content: center;
   align-items: center;
 }

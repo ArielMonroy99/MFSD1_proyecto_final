@@ -8,12 +8,5 @@ type ProtectedRouteProps = {
 }
 
 export const ProtectedRoute = ({ children, user }: ProtectedRouteProps) => {
-  return user ? (
-    <div>
-      <span>hola {user.nombre} </span>
-      {children}
-    </div>
-  ) : (
-    <Navigate to="/login" />
-  )
+  return user ? <div>{children}</div> : <Navigate to="/login" />
 }

@@ -5,9 +5,9 @@
   align-items: start;
 }
 
-.container > div > input,
-.container > div > textarea,
-.container > div > select {
+.container input,
+.container textarea,
+.container select {
   width: 250px;
 }
 

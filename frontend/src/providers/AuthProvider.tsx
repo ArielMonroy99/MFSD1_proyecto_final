@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router'
 import { toast } from 'sonner'
 import { LoginData, User, UserRegisterData } from '../types/types'
 import { AuthContext } from './AuthContext'
+import { Endpoints } from '../constants/constants'
+import axios from 'axios'
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | undefined>(undefined)
@@ -11,72 +13,78 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const navigate = useNavigate()
   const login = async (data: LoginData) => {
-    fetch(`${API_HOST}/usuario/login`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(async (res) => {
-        if (res.status !== 200) {
-          toast.error('Error al inciar sesion')
-        }
-        const json = await res.json()
-        localStorage.setItem('token', json.token)
-        await getInfo()
-        navigate('/tasks')
+    try {
+      const response = await axios.post(`${API_HOST}${Endpoints.LOGIN}`, data, {
+        withCredentials: true,
       })
-      .catch((err: Error) => {
-        toast.error('Error al inciar sesion' + err)
-      })
+      if (response.status !== 200) {
+        toast.error('Error al iniciar sesión')
+        return
+      }
+      await getInfo()
+      navigate('/tasks')
+    } catch (error) {
+      toast.error('Error al iniciar sesión' + error)
+      console.log(error)
+      return
+    }
   }
-  const logout = () => {
-    localStorage.removeItem('token')
-    setUser({} as User)
-    navigate('/login')
+  const logout = async () => {
+    try {
+      const response = await axios.post(
+        `${API_HOST}${Endpoints.LOGOUT}`,
+        {},
+        { withCredentials: true },
+      )
+      if (response.status !== 200) {
+        toast.error('Error al cerrar sesión')
+        return
+      }
+      setUser({} as User)
+      navigate('/login')
+    } catch (error) {
+      toast.error('Error al cerrar sesión' + error)
+      console.log(error)
+    }
   }
+
   const getInfo = async () => {
-    fetch(`${API_HOST}/usuario/me`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-      .then(async (res) => {
-        if (res.status !== 200) {
-          console.log(res)
-          throw new Error('No autorizado')
-        }
-        return res.json()
+    try {
+      const response = await axios.get(`${API_HOST}${Endpoints.USER_INFO}`, {
+        withCredentials: true,
       })
-      .then((json) => {
-        console.log(json)
-        setUser(json)
-      })
-      .catch((err: Error) => {
-        toast.error('Error al obtener la información: ' + err.message)
+      setIsLoading(false)
+
+      if (response.status !== 200) {
+        toast.error('Error al obtener la información')
         setUser(undefined)
-      })
-      .finally(() => {
-        setIsLoading(false)
-        console.log(user)
-      })
+        return
+      }
+      setUser(response.data)
+      return
+    } catch (error) {
+      toast.error('Error al obtener la información' + error)
+      console.log(error)
+      setIsLoading(false)
+      setUser(undefined)
+      return
+    }
   }
 
   const register = async (user: UserRegisterData) => {
-    fetch(`${API_HOST}/usuario/`, {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(async (res) => {
-        if (res.status !== 200) {
-          toast.error('Error crear usuaario')
-        }
-
-        navigate('/login')
+    try {
+      const response = await axios.post(`${API_HOST}${Endpoints.REGISTER}`, user, {
+        withCredentials: true,
       })
-      .catch((err: Error) => {
-        toast.error('Error crear usuaario' + err)
-      })
+      if (response.status !== 200) {
+        toast.error('Error crear usuaario')
+      }
+      navigate('/login')
+    } catch (error) {
+      toast.error('Error al crear usuario' + error)
+      console.log(error)
+      return
+    }
   }
 
   useEffect(() => {

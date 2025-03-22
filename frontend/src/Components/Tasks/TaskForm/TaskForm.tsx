@@ -32,7 +32,6 @@ export const TaksForm = ({
       const formatDateForInput = (date: Date): string => {
         return date.toISOString().split('T')[0]
       }
-
       const idInput = formRef.current.querySelector('input[name="id"]') as HTMLInputElement
       const tituloInput = formRef.current.querySelector('input[name="titulo"]') as HTMLInputElement
       const descripcionTextarea = formRef.current.querySelector(
@@ -45,20 +44,19 @@ export const TaksForm = ({
         'select[name="estado"]',
       ) as HTMLSelectElement
       if (idInput) idInput.value = editTask.id.toString()
-      if (tituloInput) tituloInput.value = editTask.titulo
-      if (descripcionTextarea) descripcionTextarea.value = editTask.descripcion
+      if (tituloInput) tituloInput.value = editTask.title
+      if (descripcionTextarea) descripcionTextarea.value = editTask.description
       if (estadoSelect) {
-        console.log('editTask.estado', editTask.estado)
-        estadoSelect.value = editTask.estado.toString()
+        console.log('editTask.estado', editTask.status)
+        estadoSelect.value = editTask.status
       }
 
       const fechaLimite =
-        editTask.fecha_limite instanceof Date
-          ? editTask.fecha_limite
-          : new Date(editTask.fecha_limite)
+        editTask.due_date instanceof Date ? editTask.due_date : new Date(editTask.due_date)
 
       if (fechaLimiteInput) fechaLimiteInput.value = formatDateForInput(fechaLimite)
     }
+    console.log('editTask', editTask)
   }, [editTask, formRef])
 
   const submitHandler = async (event: FormEvent<HTMLFormElement>) => {
@@ -72,23 +70,21 @@ export const TaksForm = ({
     console.log('formData', formData.get('estado'))
     const body: Task = {
       id: formData.get('id') ? parseInt(formData.get('id') as string) : 0,
-      titulo: formData.get('titulo') as string,
-      descripcion: formData.get('descripcion') as string,
-      estado: parseInt(formData.get('estado') as string),
-      usuario_id: parseInt(user?.id ?? '1'),
-      fecha_limite: new Date(formData.get('fecha_limite') as string),
+      title: formData.get('titulo') as string,
+      description: formData.get('descripcion') as string,
+      status: formData.get('estado') as string,
+      user_id: parseInt(user?.id ?? '1'),
+      due_date: new Date(formData.get('fecha_limite') as string),
     }
 
     try {
       if (!editTask) await createTask(body)
       else await updateTask(body)
 
-      // Limpiar el formulario usando la referencia
       if (formRef?.current) {
         formRef.current.reset()
       }
 
-      // Llamar a la función de éxito si existe
       if (onSuccess) onSuccess()
     } catch (error) {
       console.error('Error al crear/editar la tarea:', error)
@@ -108,14 +104,19 @@ export const TaksForm = ({
       />
 
       <Select label={'Estado'} name={'estado'} hidden={editTask ? false : true}>
-        <optgroup>
-          <option value="1">Pendiente</option>
-          <option value="2">En progreso</option>
-          <option value="3">Terminado</option>
+        <optgroup label={'Estados'}>
+          <option value="pending">Pendiente</option>
+          <option value="in_progress">En progreso</option>
+          <option value="finished">Terminado</option>
         </optgroup>
       </Select>
 
-      <Input label={'Fecha limite'} type={'date'} name={'fecha_limite'} placeholder={''} />
+      <Input
+        label={'Fecha limite'}
+        type={'date'}
+        name={'fecha_limite'}
+        placeholder={'Fecha limite'}
+      />
       <div className={styles.footer}>
         <Button type="button" variant="secondary" handler={closeModal}>
           Cancelar

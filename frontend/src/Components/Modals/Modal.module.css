@@ -1,9 +1,9 @@
 .modal {
   padding: 30px;
   outline: none;
-  border: solid 1px white;
+  border: none;
   background-color: #242424;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 .title {

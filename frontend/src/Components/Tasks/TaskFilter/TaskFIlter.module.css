@@ -1,0 +1,34 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.form > div {
+  margin: 5px;
+}
+
+.form input,
+.form textarea,
+.form select {
+  width: 250px;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+}

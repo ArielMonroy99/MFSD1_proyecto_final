@@ -3,8 +3,9 @@
   padding: 10px 10px;
   border-radius: 7px;
   border: 1px solid;
-  border-color: white;
+  border-color: #7e7e7e;
   resize: none;
+  background-color: #242424;
 }
 
 .textarea:focus {

@@ -1,26 +1,22 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { QueryParams, Task } from "../types/types";
 import { toast } from "sonner";
-import useAuth from "./useAuth";
+import { Endpoints } from "../constants/constants";
+import axios from "axios";
 
 export const useTasks = () => {
   const API_HOST = import.meta.env.VITE_BASE_URL
-  console.log(API_HOST)
   const [tasks, setTasks] = useState<Task[]>([]);
-  const { user } = useAuth();
-  const getTasks = useCallback(async (params?: QueryParams) => {
-    if (!user?.id) return; 
+  const getTasks = useCallback(async (params?: QueryParams) => {; 
     
-    let url = `${API_HOST}/tarea/usuario/${user.id}`;
+    let url = `${API_HOST}${Endpoints.TASKS}`;
     
     if (params) {
       const queryParams = new URLSearchParams();
-      if (params.filtro) queryParams.append('filtro', params.filtro);
-      if (params.fechaDespuesDe) queryParams.append('fechaDespuesDe', params.fechaDespuesDe);
-      if (params.fechaAntesDe) queryParams.append('fechaAntesDe', params.fechaAntesDe);
-      if (params.estado) queryParams.append('estado', params.estado.toString());
-      
-
+      if (params.search) queryParams.append('search', params.search);
+      if (params.dateAfter) queryParams.append('dateAfter', params.dateAfter);
+      if (params.dateBefore) queryParams.append('dateBefore', params.dateBefore);
+      if (params.status) queryParams.append('status', params.status);
       const queryString = queryParams.toString();
       if (queryString) {
         url += `?${queryString}`;
@@ -28,22 +24,17 @@ export const useTasks = () => {
     }
     
     try {
-      const res = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get(url, { withCredentials: true });
   
-      if (res.ok) {
-        const json = await res.json();
-        setTasks(json.rows);
+      if (response.status === 200) {
+        setTasks(response.data.rows);
       } else {
         toast.error("Error al obtener tareas");
       }
     } catch (error) {
       toast.error("Error al obtener tareas: " + error);
     }
-  }, [user?.id,API_HOST]);
+  }, [API_HOST]);
 
   useEffect(() => {
     getTasks();
@@ -51,16 +42,12 @@ export const useTasks = () => {
 
   const createTask = useCallback(async (task: Task) => {
     try {
-        const res = await fetch(`${API_HOST}/tarea`, {
-            method: "POST",
-            body: JSON.stringify(task),
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                "Content-type": "application/json",
-            },
-        });
 
-        if (!res.ok) {
+        const response = await axios.post(`${API_HOST}${Endpoints.TASKS}`, task, {
+          withCredentials: true,
+        } )
+
+        if (response.status !== 200) {
             throw new Error("Error al crear nueva tarea");
         }
         toast.success("Tarea creada");
@@ -75,16 +62,10 @@ export const useTasks = () => {
 
 const updateTask = useCallback(async (task: Task) => {
   try {
-    const res = await fetch(`${API_HOST}/tarea/${task.id}`, {
-        method: "PUT",
-        body: JSON.stringify(task),
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-type": "application/json",
-        },
+    const response = await axios.put(`${API_HOST}${Endpoints.TASKS}/${task.id}`, task, {
+      withCredentials: true,
     });
-
-    if (!res.ok) {
+    if (response.status !== 200) {
         throw new Error("Error al actualizar tarea");
     }
     toast.success("Tarea actualizada");
@@ -98,13 +79,11 @@ const updateTask = useCallback(async (task: Task) => {
 
 const deleteTask = useCallback(async (id: number) => {
   try {
-    const res = await fetch(`${API_HOST}/tarea/${id}`, {
-        method: "DELETE",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+    const response = await axios.delete(`${API_HOST}${Endpoints.TASKS}/${id}`, {
+      withCredentials: true,
     });
-    if(!res.ok) {
+
+    if(response.status !== 200) {
       throw new Error("Error al eliminar tarea");
     }
     toast.success("Tarea eliminada");
@@ -117,15 +96,14 @@ const deleteTask = useCallback(async (id: number) => {
 
 const finishTask = useCallback(async (id: number) => {
   try {
-    const res = await fetch(`${API_HOST}/tarea/terminar/${id}`, {
-        method: "PUT",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+    const response = await axios.put(`${API_HOST}${Endpoints.TASKS}/finish/${id}`, {}, {
+      withCredentials: true,
     });
-    if(!res.ok) {
+
+    if(response.status !== 200) {
       throw new Error("La tarea no esta en progreso");
     }
+
     toast.success("Tarea finalizada");
     await getTasks();
   } catch (error) {

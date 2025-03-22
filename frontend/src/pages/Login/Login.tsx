@@ -13,8 +13,8 @@ export const Login = ({ login }: LoginProps) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const body = {
-      correo: formData.get('correo')?.toString() ?? '',
+    const body: LoginData = {
+      email: formData.get('correo')?.toString() ?? '',
       password: formData.get('password')?.toString() ?? '',
     }
     login(body)

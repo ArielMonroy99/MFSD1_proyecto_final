@@ -14,7 +14,7 @@ export const TaskList = ({ tasks, setEditTask, deleteTask, finishTask }: TaskLis
       <ul className={styles.list}>
         {tasks.length > 0 &&
           tasks.map((task) => {
-            task.fecha_limite = new Date(task.fecha_limite)
+            task.due_date = new Date(task.due_date)
             return (
               <li key={task.id}>
                 <TaskCard
